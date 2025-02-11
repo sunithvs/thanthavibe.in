@@ -126,10 +126,10 @@
                 type: "radio",
                 emoji: "📱",
                 options: [
-                    "Give a 2-hour lecture on responsible investing",
-                    "Say 'To the moon! 🚀' and buy some yourself",
-                    "Ask if they've tried turning their brain off and on again",
-                    "Pretend the call dropped and go back to sleep"
+                    { text: "Give a 2-hour lecture on responsible investing", score: "financial" },
+                    { text: "Say 'To the moon! 🚀' and buy some yourself", score: "yolo" },
+                    { text: "Ask if they've tried turning their brain off and on again", score: "tech" },
+                    { text: "Pretend the call dropped and go back to sleep", score: "peace" }
                 ]
             },
             {
@@ -137,10 +137,10 @@
                 type: "radio",
                 emoji: "💰",
                 options: [
-                    "Invest it in a high-yield savings account like a proper Thantha",
-                    "Buy snacks and share with everyone (except Gary from accounting)",
-                    "Save it for exactly 3 days before buying something impulsive",
-                    "Wonder which parallel universe version of you put it there"
+                    { text: "Invest it in a high-yield savings account like a proper Thantha", score: "financial" },
+                    { text: "Buy snacks and share with everyone (except Gary from accounting)", score: "food" },
+                    { text: "Save it for exactly 3 days before buying something impulsive", score: "yolo" },
+                    { text: "Wonder which parallel universe version of you put it there", score: "peace" }
                 ]
             },
             {
@@ -148,10 +148,10 @@
                 type: "radio",
                 emoji: "💝",
                 options: [
-                    "Draw a detailed flowchart of life choices with pros and cons",
-                    "Share your own embarrassing dating stories as cautionary tales",
-                    "Google 'how to give relationship advice' while pretending to think",
-                    "Tell them to ask their pet fish instead"
+                    { text: "Draw a detailed flowchart of life choices with pros and cons", score: "tech" },
+                    { text: "Share your own embarrassing dating stories as cautionary tales", score: "wisdom" },
+                    { text: "Google 'how to give relationship advice' while pretending to think", score: "tech" },
+                    { text: "Tell them to ask their pet fish instead", score: "yolo" }
                 ]
             },
             {
@@ -159,10 +159,10 @@
                 type: "radio",
                 emoji: "🔧",
                 options: [
-                    "Watch 47 YouTube tutorials and become an expert repair person",
-                    "Hit it gently while whispering encouraging words",
-                    "Call the repair person and pretend you know what's wrong",
-                    "Accept it as your new modern art installation"
+                    { text: "Watch 47 YouTube tutorials and become an expert repair person", score: "tech" },
+                    { text: "Hit it gently while whispering encouraging words", score: "peace" },
+                    { text: "Call the repair person and pretend you know what's wrong", score: "wisdom" },
+                    { text: "Accept it as your new modern art installation", score: "yolo" }
                 ]
             }
         ];
@@ -204,7 +204,7 @@
                                        value="${index}"
                                        onchange="saveAnswer(${index})"
                                        class="mr-4 h-5 w-5 text-purple-500 focus:ring-purple-500">
-                                <span class="text-lg group-hover:text-purple-600 transition-colors duration-200">${option}</span>
+                                <span class="text-lg group-hover:text-purple-600 transition-colors duration-200">${option.text}</span>
                             </label>
                         </div>
                     `;
@@ -272,17 +272,85 @@
         }
 
         function calculateThanthaVibe() {
-            let score = 0;
-            for (let i = 1; i < questions.length; i++) {
-                score += parseInt(answers[i] || 0);
-            }
-            const maxScore = (questions.length - 1) * 3;
-            const percentage = (score / maxScore) * 100;
+            let scores = {
+                tech: 0,
+                financial: 0,
+                peace: 0,
+                yolo: 0,
+                wisdom: 0,
+                food: 0
+            };
             
-            if (percentage >= 75) return "Supreme Thantha Lord 👑";
-            if (percentage >= 50) return "Professional Thantha in Training 📚";
-            if (percentage >= 25) return "Aspiring Thantha Padawan 🌱";
-            return "Chaotic Anti-Thantha 🎭";
+            // Count scores for each category
+            let totalAnswered = 0;
+            for (let i = 1; i < questions.length; i++) {
+                const answer = answers[i];
+                if (answer !== undefined && questions[i].options[answer]) {
+                    const category = questions[i].options[answer].score;
+                    scores[category]++;
+                    totalAnswered++;
+                }
+            }
+            
+            // Find the dominant personality type
+            let maxScore = 0;
+            let dominantType = '';
+            for (let type in scores) {
+                if (scores[type] > maxScore) {
+                    maxScore = scores[type];
+                    dominantType = type;
+                }
+            }
+            
+            // Calculate percentage of dominant trait
+            const percentage = (maxScore / totalAnswered) * 100;
+            const isThantha = percentage >= 40; // Add 'Thantha' to title if score is 40% or higher
+            
+            // Return result based on dominant type
+            switch (dominantType) {
+                case 'tech':
+                    return {
+                        title: `Tech Wizard ${isThantha ? 'Thantha ' : ''}💻`,
+                        description: "The ultimate tech troubleshooter! From fixing printers to creating relationship flowcharts, you've got the technical solution to every problem!",
+                        color: "from-blue-600 to-cyan-600"
+                    };
+                case 'financial':
+                    return {
+                        title: `Finance Guru ${isThantha ? 'Thantha ' : ''}💸`,
+                        description: "The responsible one who gives 2-hour lectures on cryptocurrency and compound interest. Your friends' wallets thank you!",
+                        color: "from-green-600 to-emerald-600"
+                    };
+                case 'peace':
+                    return {
+                        title: `Zen Master ${isThantha ? 'Thantha ' : ''}🧘‍♂️`,
+                        description: "So chill that you make sleeping cats look stressed. Your solution to every problem? Turn it off and on again - including yourself!",
+                        color: "from-purple-600 to-indigo-600"
+                    };
+                case 'yolo':
+                    return {
+                        title: `Chaotic ${isThantha ? 'Thantha ' : 'Soul '}🎉`,
+                        description: "Life's too short for serious decisions! From impulse buys to crypto adventures, you're living your best chaotic life!",
+                        color: "from-pink-500 to-red-500"
+                    };
+                case 'wisdom':
+                    return {
+                        title: `Life Coach ${isThantha ? 'Thantha ' : ''}💭`,
+                        description: "The fountain of questionable wisdom! Your advice might be based on embarrassing personal experiences, but hey, at least it's entertaining!",
+                        color: "from-yellow-500 to-orange-500"
+                    };
+                case 'food':
+                    return {
+                        title: `Snack Lord ${isThantha ? 'Thantha ' : ''}🍕`,
+                        description: "The provider of sustenance! Your solution to every crisis involves food, and honestly, you're probably right!",
+                        color: "from-orange-500 to-red-500"
+                    };
+                default:
+                    return {
+                        title: `Balanced ${isThantha ? 'Thantha ' : 'Soul '}⚖️`,
+                        description: "A perfect blend of chaos and wisdom! You're equally likely to give sage advice or suggest consulting a pet fish!",
+                        color: "from-violet-500 to-indigo-500"
+                    };
+            }
         }
 
         function showResult() {
@@ -293,10 +361,10 @@
             const thanthaLevel = calculateThanthaVibe();
 
             const resultHtml = `
-                <div class="bg-gradient-to-r from-purple-500 via-pink-500 to-indigo-500 p-8 rounded-xl text-white mb-6 transform hover:scale-[1.02] transition-transform duration-300 shine-effect">
+                <div class="bg-gradient-to-r ${thanthaLevel.color} p-8 rounded-xl text-white mb-6 transform hover:scale-[1.02] transition-transform duration-300 shine-effect">
                     <h3 class="text-4xl font-bold mb-4 text-center">${name}</h3>
-                    <p class="text-3xl mb-4 text-center">${thanthaLevel}</p>
-                    <p class="text-xl opacity-90 text-center">Your Thantha energy is radiating! ✨</p>
+                    <p class="text-3xl mb-4 text-center">${thanthaLevel.title}</p>
+                    <p class="text-xl opacity-90 text-center">${thanthaLevel.description}</p>
                 </div>
                 <p class="text-gray-600 text-xl text-center">🌟 Share your incredible Thantha Vibe with the world! 🌟</p>
             `;
