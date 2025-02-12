@@ -51,12 +51,12 @@
         }
     </style>
 </head>
-<body class=" bg-cover bg-center min-h-screen py-8 px-4">
+<body class=" bg-cover bg-center min-h-screen py-8 px-4 flex items-center justify-center" >
     <div class="max-w-2xl mx-auto">
         <!-- Quiz Container -->
         <div id="quiz-container" class="bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl p-8 transform hover:scale-[1.02] transition-all duration-300">
             <div class="float-animation">
-                <h1 class="text-5xl font-bold text-center mb-4 text-transparent bg-clip-text bg-gradient-to-r from-purple-600 via-pink-500 to-indigo-600">
+                <h1 class="text-3xl font-bold text-center mb-4 text-transparent bg-clip-text bg-gradient-to-r from-purple-600 via-pink-500 to-indigo-600">
                     ✨ Ultimate Thantha Vibe Check ✨
                 </h1>
                 <div id="question-container" class="mt-8"></div>
@@ -137,7 +137,7 @@
                 type: "radio",
                 emoji: "💰",
                 options: [
-                    { text: "Invest it in a high-yield savings account like a proper Thantha", score: "financial" },
+                    { text: "Invest it in a high-yield savings account like a ", score: "financial" },
                     { text: "Buy snacks and share with everyone (except Gary from accounting)", score: "food" },
                     { text: "Save it for exactly 3 days before buying something impulsive", score: "yolo" },
                     { text: "Wonder which parallel universe version of you put it there", score: "peace" }
@@ -178,7 +178,7 @@
         function renderQuestion() {
             const question = questions[currentQuestion];
             const container = document.getElementById('question-container');
-            
+
             let html = `
                 <div class="mb-6 opacity-0" id="question-content">
                     <h2 class="text-2xl font-semibold mb-6 text-gray-700 flex items-center gap-3">
@@ -189,8 +189,8 @@
 
             if (question.type === 'text') {
                 html += `
-                    <input type="text" 
-                           class="w-full p-4 border-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all duration-300 text-lg" 
+                    <input type="text"
+                           class="w-full p-4 border-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all duration-300 text-lg"
                            placeholder="${question.placeholder}"
                            onchange="saveAnswer(event.target.value)">
                 `;
@@ -199,8 +199,8 @@
                     html += `
                         <div class="mb-4 transform hover:scale-[1.02] transition-transform duration-200">
                             <label class="flex items-center p-4 border-2 rounded-xl hover:bg-purple-50 cursor-pointer transition-all duration-200 group">
-                                <input type="radio" 
-                                       name="q${currentQuestion}" 
+                                <input type="radio"
+                                       name="q${currentQuestion}"
                                        value="${index}"
                                        onchange="saveAnswer(${index})"
                                        class="mr-4 h-5 w-5 text-purple-500 focus:ring-purple-500">
@@ -213,11 +213,11 @@
 
             html += `
                 <div class="flex justify-between mt-8">
-                    ${currentQuestion > 0 ? 
-                        `<button onclick="previousQuestion()" class="bg-gray-500 text-white px-6 py-3 rounded-xl hover:bg-gray-600 transition-all duration-300 transform hover:scale-[1.02] text-lg">⬅️ Previous</button>` : 
+                    ${currentQuestion > 0 ?
+                        `<button onclick="previousQuestion()" class="bg-gray-500 text-white px-6 py-3 rounded-xl hover:bg-gray-600 transition-all duration-300 transform hover:scale-[1.02] text-lg">⬅️ Previous</button>` :
                         `<div></div>`
                     }
-                    ${currentQuestion < questions.length - 1 ? 
+                    ${currentQuestion < questions.length - 1 ?
                         `<button onclick="nextQuestion()" class="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 py-3 rounded-xl hover:opacity-90 transition-all duration-300 transform hover:scale-[1.02] text-lg shine-effect">Next ➡️</button>` :
                         `<button onclick="showResult()" class="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-8 py-3 rounded-xl hover:opacity-90 transition-all duration-300 transform hover:scale-[1.02] text-lg shine-effect">✨ Reveal My Thantha Level ✨</button>`
                     }
@@ -227,7 +227,7 @@
 
             container.innerHTML = html;
             updateProgress();
-            
+
             // Animate new question
             gsap.to("#question-content", {
                 opacity: 1,
@@ -280,7 +280,7 @@
                 wisdom: 0,
                 food: 0
             };
-            
+
             // Count scores for each category
             let totalAnswered = 0;
             for (let i = 1; i < questions.length; i++) {
@@ -291,7 +291,7 @@
                     totalAnswered++;
                 }
             }
-            
+
             // Find the dominant personality type
             let maxScore = 0;
             let dominantType = '';
@@ -301,11 +301,11 @@
                     dominantType = type;
                 }
             }
-            
+
             // Calculate percentage of dominant trait
             const percentage = (maxScore / totalAnswered) * 100;
             const isThantha = percentage >= 40; // Add 'Thantha' to title if score is 40% or higher
-            
+
             // Return result based on dominant type
             switch (dominantType) {
                 case 'tech':
@@ -370,7 +370,7 @@
             `;
 
             resultContent.innerHTML = resultHtml;
-            
+
             gsap.to(quizContainer, {
                 opacity: 0,
                 y: -20,
@@ -410,7 +410,7 @@
             const name = answers[0] || 'Anonymous';
             const result = calculateThanthaVibe();
             const text = `🎉 I am a ${result.title} in the Ultimate Thantha Vibe Check! ${result.description} Take the quiz to discover your Thantha energy! ✨`;
-            
+
             try {
                 if (navigator.share) {
                     await navigator.share({
