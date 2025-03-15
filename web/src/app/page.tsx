@@ -1,5 +1,6 @@
 import Image from "next/image";
 import AnimatedThanthaVibe from "./components/AnimatedThanthaVibe";
+import AnimatedBackground from "./components/AnimatedBackground";
 
 export default function Home() {
   return (
@@ -12,6 +13,7 @@ export default function Home() {
         backgroundRepeat: "no-repeat"
       }}
     >
+      {/* <AnimatedBackground /> */}
       <AnimatedThanthaVibe />
     </div>
   );
