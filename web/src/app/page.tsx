@@ -1,6 +1,6 @@
-import Image from "next/image";
+// import Image from "next/image";
 import AnimatedThanthaVibe from "./components/AnimatedThanthaVibe";
-import AnimatedBackground from "./components/AnimatedBackground";
+// import AnimatedBackground from "./components/AnimatedBackground";
 
 export default function Home() {
   return (
