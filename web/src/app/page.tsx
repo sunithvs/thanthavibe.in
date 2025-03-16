@@ -1,5 +1,5 @@
 // import Image from "next/image";
-import AnimatedThanthaVibe from "./components/AnimatedThanthaVibe";
+import ResponsiveThanthaVibe from "./components/ResponsiveThanthaVibe";
 // import AnimatedBackground from "./components/AnimatedBackground";
 
 export default function Home() {
@@ -14,7 +14,7 @@ export default function Home() {
       }}
     >
       {/* <AnimatedBackground /> */}
-      <AnimatedThanthaVibe />
+      <ResponsiveThanthaVibe />
     </div>
   );
 }
