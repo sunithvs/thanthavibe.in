@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@tailwindcss/oxide-linux-x64-gnu':
+        specifier: ^4.0.17
+        version: 4.0.17
       framer-motion:
         specifier: ^12.5.0
         version: 12.5.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -417,6 +420,12 @@ packages:
 
   '@tailwindcss/oxide-linux-x64-gnu@4.0.14':
     resolution: {integrity: sha512-EE+EQ+c6tTpzsg+LGO1uuusjXxYx0Q00JE5ubcIGfsogSKth8n8i2BcS2wYTQe4jXGs+BQs35l78BIPzgwLddw==}
+    engines: {node: '>= 10'}
+    cpu: [x64]
+    os: [linux]
+
+  '@tailwindcss/oxide-linux-x64-gnu@4.0.17':
+    resolution: {integrity: sha512-gELJzOHK6GDoIpm/539Golvk+QWZjxQcbkKq9eB2kzNkOvrP0xc5UPgO9bIMNt1M48mO8ZeNenCMGt6tfkvVBg==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [linux]
@@ -1978,6 +1987,8 @@ snapshots:
 
   '@tailwindcss/oxide-linux-x64-gnu@4.0.14':
     optional: true
+
+  '@tailwindcss/oxide-linux-x64-gnu@4.0.17': {}
 
   '@tailwindcss/oxide-linux-x64-musl@4.0.14':
     optional: true
